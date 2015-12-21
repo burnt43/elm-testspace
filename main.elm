@@ -1,16 +1,17 @@
-import Html exposing (text)
-
-foo : String
-foo =
-  "HELLO"
-
-bar : List String
-bar =
-  ["Hello","World"]
-
-message : { text : String, foo : Int }
-message =
-  { text = "HELLO", foo = 10 }
+import Html exposing (div, button, text)
+import Html.Events exposing(onClick)
+import StartApp.Simple as StartApp
 
 main =
-  text message.text
+  StartApp.start { model = { text = "" }, view = view, update = update }
+
+view address model =
+  div []
+    [ button [ onClick address "A" ] [ text "A" ]
+    , button [ onClick address "B" ] [ text "B" ]
+    , button [ onClick address "C" ] [ text "C" ]
+    , div [] [ text model.text ]
+    ]
+
+update action model =
+  { model | text = model.text ++ action }
