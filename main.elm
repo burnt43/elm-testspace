@@ -27,6 +27,25 @@ stupidFunction : Int -> RustLikeSome
 stupidFunction n =
   if n > 0 then Some "string" else None
 
+someList : List String
+someList =
+  [ "Red", "Blue", "Green" ]
+
+toLi s =
+  li [] [ text s ]
+
+type Color = Red | Blue | Green
+
+colors : List Color
+colors =
+  [ Red, Blue, Green ]
+
+colorToString : Color -> String
+colorToString color =
+  case color of
+    Red -> "Red"
+    Blue -> "Blue"
+    Green -> "Green"
 
 main =
   StartApp.start { model = { text = "" }, view = view, update = update }
@@ -41,7 +60,7 @@ view address model =
         , div [] [ text model.text ]
         ],
       div []
-        [ h1 [] [ text "Other" ]
+        [ h1 [] [ text "Random Stuff" ]
         , ul []
           [ li [] [ text ( toString someInt ) ]
           , li [] [ text ( toString ( List.length names ) ) ]
@@ -66,6 +85,14 @@ view address model =
               )
             ]
           ]
+        ],
+      div []
+        [ h1 [] [ text "Random Stuff 2" ]
+        , ul [] (List.map toLi someList)
+        ],
+      div []
+        [ h1 [] [ text "Random Stuff 3" ]
+        , ul [] (List.map toLi (List.map colorToString colors) )
         ]
     ]
 
