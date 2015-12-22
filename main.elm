@@ -47,6 +47,16 @@ colorToString color =
     Blue -> "Blue"
     Green -> "Green"
 
+type JimNumber
+  = Regular ( Int )
+  | Tuple ( (Int,Int) )
+
+jimNumberToString : JimNumber -> String
+jimNumberToString x =
+  case x of
+    Regular n -> toString n
+    Tuple (a,b) -> toString ( a+b )
+
 main =
   StartApp.start { model = { text = "" }, view = view, update = update }
 
@@ -93,6 +103,13 @@ view address model =
       div []
         [ h1 [] [ text "Random Stuff 3" ]
         , ul [] (List.map toLi (List.map colorToString colors) )
+        ],
+      div []
+        [ h1 [] [ text "Random Stuff 4" ]
+        , ul [] [
+            li [] [ text ( jimNumberToString (Regular 3) ) ]
+          , li [] [ text ( jimNumberToString (Tuple (4,5)) ) ]
+          ]
         ]
     ]
 
