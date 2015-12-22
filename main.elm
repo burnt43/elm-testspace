@@ -70,6 +70,18 @@ foobarFunction0000 n =
     Just x -> li [] [ text (toString x) ]
     Nothing -> li [] [ text "null(is a bad word!)" ]
 
+type LList t = Empty | Node t (LList t)
+foobar0 : LList Int
+foobar0 =
+  Node 5 (Node 10 Empty)
+
+sumLList : LList Int -> Int
+sumLList list =
+  case list of
+    Empty -> 0
+    Node value rest ->
+      value + sumLList rest
+
 main =
   StartApp.start { model = { text = "" }, view = view, update = update }
 
@@ -127,8 +139,13 @@ view address model =
       div []
         [ h1 [] [ text "Random Stuff 5" ]
         , ul [] (List.map foobarFunction0000 bunchOfNumbers)
+        ],
+      div []
+        [ h1 [] [ text "Random Stuff 6" ]
+        , ul [] 
+          [ li [] [ text ( toString ( sumLList foobar0 ) ) ]
+          ]
         ]
-
     ]
 
 update action model =
