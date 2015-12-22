@@ -57,6 +57,19 @@ jimNumberToString x =
     Regular n -> toString n
     Tuple (a,b) -> toString ( a+b )
 
+oddOrNothing : Int -> Maybe Int
+oddOrNothing n =
+  if n % 2 == 0 then Nothing else Just n
+
+bunchOfNumbers : List Int
+bunchOfNumbers =
+  [1,2,3,4,5,6]
+
+foobarFunction0000 n =
+  case oddOrNothing n of
+    Just x -> li [] [ text (toString x) ]
+    Nothing -> li [] [ text "null(is a bad word!)" ]
+
 main =
   StartApp.start { model = { text = "" }, view = view, update = update }
 
@@ -110,7 +123,12 @@ view address model =
             li [] [ text ( jimNumberToString (Regular 3) ) ]
           , li [] [ text ( jimNumberToString (Tuple (4,5)) ) ]
           ]
+        ],
+      div []
+        [ h1 [] [ text "Random Stuff 5" ]
+        , ul [] (List.map foobarFunction0000 bunchOfNumbers)
         ]
+
     ]
 
 update action model =
